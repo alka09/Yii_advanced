@@ -36,6 +36,16 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+
+        'view' => [
+            'theme' => [
+                'basePath' => '$app/themes/new_year',
+                'baseUrl' => '$web/themes/new_year',
+                'pathMap' => [
+                    '$app/views' => '$app/themes/new_year'
+                ]
+            ]
+        ],
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,

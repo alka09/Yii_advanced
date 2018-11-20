@@ -1,6 +1,7 @@
 <?php
 
 /* @var $this yii\web\View */
+/** @var use yii\helpers\Url;*/
 
 $this->title = 'My Yii Application';
 ?>

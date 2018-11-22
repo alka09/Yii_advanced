@@ -2,8 +2,8 @@
 namespace backend\controllers;
 
 use Yii;
-use app\models\tables\Roles;
-use app\models\RolesSearch;
+use common\models\tables\Roles;
+use common\models\RolesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

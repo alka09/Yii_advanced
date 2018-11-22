@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\RolesSearch */
+/* @var $searchModel common\models\RolesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Roles';

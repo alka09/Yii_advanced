@@ -8,16 +8,17 @@ use yii\rbac\Role;
 use yii\web\IdentityInterface;
 
 /**
- * This is the model class for table "users".
- *
- * @property int $id
- * @property string $login
- * @property string $password
- * @property int $role_id
+ * This is the model class for table "user".
+ * @property integer $id
+ * @property string $username
+ * @property string $password_hash
+ * @property string $password_reset_token
  * @property string $email
- * @property Roles $role
+ * @property string $auth_key
+ * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
+ * @property string $password write-only password
  */
 class Users extends \yii\db\ActiveRecord
 {
@@ -39,7 +40,7 @@ class Users extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'users';
+        return 'user';
     }
 
     /**
@@ -48,11 +49,11 @@ class Users extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['login', 'password', 'email'], 'required'],
+            [['username', 'password', 'email'], 'required'],
             [['role_id'], 'integer'],
             [['login'], 'string', 'max' => 50],
             [['password'], 'string', 'max' => 128],
-            [['login'], 'unique'],
+            [['username'], 'unique'],
             [['email'], 'string', 'max' => 128],
             [['role_id'], 'exist', 'skipOnError' => true, 'targetClass' => Roles::className(), 'targetAttribute' => ['role_id' => 'id']],
         ];
@@ -65,7 +66,7 @@ class Users extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'login' => 'Login',
+            'username' => 'UserName',
             'password' => 'Password',
             'role_id' => 'Role ID',
             'email' => 'Email',
@@ -89,7 +90,7 @@ class Users extends \yii\db\ActiveRecord
     public function addUser()
     {
         $user = new Users();
-        $user->login = $this->login;
+        $user->username = $this->username;
         $user->password = \Yii::$app->security->generatePasswordHash($this->password);
         $user->role_id = $this->role_id;
         $user->email = $this->email;

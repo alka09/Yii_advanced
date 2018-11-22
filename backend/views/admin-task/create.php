@@ -4,7 +4,7 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model app\models\tables\Tasks */
+/* @var $model common\models\tables\Tasks */
 /**@var $users array*/
 
 $this->title = 'Create Tasks';

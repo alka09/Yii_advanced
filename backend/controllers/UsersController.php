@@ -6,7 +6,6 @@ use common\models\tables\Roles;
 use Yii;
 use common\models\tables\Users;
 use common\models\UsersSearch;
-use frontend\models\SignUpForm;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

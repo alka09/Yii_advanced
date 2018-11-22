@@ -2,9 +2,9 @@
 
 namespace frontend\controllers;
 
-use common\models\tables\ImageUpload;
-use common\models\tables\Tasks;
-use common\models\tables\Users;
+use app\models\tables\TaskAttachments;
+use app\models\tables\Tasks;
+use app\models\tables\Users;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;

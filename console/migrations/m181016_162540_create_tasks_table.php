@@ -17,9 +17,12 @@ class m181016_162540_create_tasks_table extends Migration
             'name' => $this->string(128)->notNull(),
             'date' => $this->dateTime(),
             'description' => $this->string(1024)->notNull(),
-            'user_id' => $this->integer()
+            'user_id' => $this->integer(),
+            'create_at' => $this->DATETIME(),
+            'updated_at' => $this->DATETIME(),
+            'image' => $this->string(),
         ]);
-        $this->addForeignKey('fk_task_user_id', 'tasks', 'user_id', 'users', 'id', 'CASCADE');
+        $this->addForeignKey('fk_task_user_id', 'tasks', 'user_id', 'user', 'id', 'CASCADE');
     }
 
     /**

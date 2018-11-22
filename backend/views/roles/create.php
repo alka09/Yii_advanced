@@ -4,7 +4,7 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model app\models\tables\Roles */
+/* @var $model common\models\tables\Roles */
 
 $this->title = 'Create Roles';
 $this->params['breadcrumbs'][] = ['label' => 'Roles', 'url' => ['index']];

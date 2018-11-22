@@ -14,20 +14,17 @@ return [
     'modules' => [],
     'components' => [
         'request' => [
+            'baseUrl' => '',
             'csrfParam' => '_csrf-backend',
-            'cookieValidationKey' => $params['cookieValidationKey'],
         ],
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
-            'identityCookie' => ['name' => '_identity', 'httpOnly' => true, 'domain' => $params['cookieDomain']],
+            'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
         ],
         'session' => [
-            'name' => 'advanced',
-            'cookieParams' =>[
-                'httpOnly' => true,
-                'domain' => $params['cookieDomain'],
-            ]
+            // this is the name of the session cookie used for login on the backend
+            'name' => 'advanced-backend',
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -54,6 +51,7 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+
             ],
         ],
 

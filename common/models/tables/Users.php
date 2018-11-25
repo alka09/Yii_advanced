@@ -6,6 +6,7 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 use yii\rbac\Role;
 use yii\web\IdentityInterface;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "user".
@@ -20,7 +21,7 @@ use yii\web\IdentityInterface;
  * @property integer $updated_at
  * @property string $password write-only password
  */
-class Users extends \yii\db\ActiveRecord
+class Users extends ActiveRecord
 {
 
     static public $users;
@@ -51,8 +52,6 @@ class Users extends \yii\db\ActiveRecord
         return [
             [['username', 'password', 'email'], 'required'],
             [['role_id'], 'integer'],
-            [['login'], 'string', 'max' => 50],
-            [['password'], 'string', 'max' => 128],
             [['username'], 'unique'],
             [['email'], 'string', 'max' => 128],
             [['role_id'], 'exist', 'skipOnError' => true, 'targetClass' => Roles::className(), 'targetAttribute' => ['role_id' => 'id']],

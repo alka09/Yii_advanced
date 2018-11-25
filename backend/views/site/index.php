@@ -1,7 +1,8 @@
 <?php
 
 /* @var $this yii\web\View */
-/** @var use yii\helpers\Url;*/
+/** @var $this yii\helpers\Url;*/
+/** @var $this yii\helpers\Html */
 
 $this->title = 'My Yii Application';
 ?>
@@ -48,6 +49,15 @@ $this->title = 'My Yii Application';
 
                 <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
             </div>
+            <div class="col-lg-4">
+                <?php use yii\helpers\Html; ?>
+
+                <h2>Администрирование</h2>
+                <p><?= Html::a('users' ,['users/'], ['class' => 'btn btn-success'])  ?></p>
+                <p><?= Html::a('admin-task' ,['admin-task/'], ['class' => 'btn btn-success']) ?></p>
+                <p><?= Html::a('roles' ,['roles/'], ['class' => 'btn btn-success']) ?></p>
+
+             </div>
         </div>
 
     </div>

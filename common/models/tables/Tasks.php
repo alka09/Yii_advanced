@@ -5,6 +5,7 @@ namespace common\models\tables;
 use Symfony\Component\DomCrawler\Image;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
+use yii\db\ActiveRecord;
 use common\models\tables\ImageUpload;
 
 /**
@@ -19,7 +20,7 @@ use common\models\tables\ImageUpload;
  *
  * @property Users $user
  */
-class Tasks extends \yii\db\ActiveRecord
+class Tasks extends ActiveRecord
 {
 
     public function behaviors()

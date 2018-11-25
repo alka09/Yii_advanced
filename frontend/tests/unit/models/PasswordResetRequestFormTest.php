@@ -28,7 +28,7 @@ class PasswordResetRequestFormTest extends \Codeception\Test\Unit
     public function testSendMessageWithWrongEmailAddress()
     {
         $model = new PasswordResetRequestForm();
-        $model->email = 'not-existing-email@example.com';
+        $model->email = 'not-existing-email@example.coma';
         expect_not($model->sendEmail());
     }
 

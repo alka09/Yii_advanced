@@ -2,9 +2,9 @@
 
 namespace frontend\controllers;
 
-use app\models\tables\TaskAttachments;
-use app\models\tables\Tasks;
-use app\models\tables\Users;
+use common\models\tables\ImageUpload;
+use common\models\tables\Tasks;
+use common\models\tables\Users;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
@@ -25,7 +25,7 @@ class TaskController extends Controller
         $provider = new ActiveDataProvider([
             'query' => Tasks::getTaskCurrentMonth($month, $id)
         ]);
-        $users = ArrayHelper::map(Users::find()->all(), 'id', 'login');
+        $users = ArrayHelper::map(Users::find()->all(), 'id', 'username');
 
         return $this->render('index', [
             'provider' => $provider,
@@ -55,7 +55,7 @@ class TaskController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        $users = ArrayHelper::map(Users::find()->all(), 'id', 'login');
+        $users = ArrayHelper::map(Users::find()->all(), 'id', 'username');
         return $this->render('update', [
             'model' => $model,
             'users' => $users

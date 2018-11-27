@@ -12,7 +12,9 @@ class m181125_073726_create extends Migration
      */
     public function safeUp()
     {
-        $this->addColumn('user', 'role_id', $this->integer()->notNull());
+        $this->addColumn('user', 'role_id', $this->integer());
+
+        $this->addForeignKey('fk_user_roles', 'user', 'role_id', 'roles', 'id','CASCADE');
     }
 
     /**

@@ -77,7 +77,7 @@ class AdminTaskController extends Controller
             $user = Users::findOne($model->user_id);
 
 
-            $message = "Уважаемый {$user->login}! На вас поставлена новая задача {$model->name}. 
+            $message = "Уважаемый {$user->username}! На вас поставлена новая задача {$model->name}. 
             Дедлайн до {$model->date}";
 
             Yii::$app->mailer
@@ -91,7 +91,7 @@ class AdminTaskController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        $users = ArrayHelper::map(Users::find()->all(), 'id', 'login');
+        $users = ArrayHelper::map(Users::find()->all(), 'id', 'username');
 
         return $this->render('create', [
             'model' => $model,
@@ -115,7 +115,7 @@ class AdminTaskController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        $users = ArrayHelper::map(Users::find()->all(), 'id', 'login');
+        $users = ArrayHelper::map(Users::find()->all(), 'id', 'username');
 
         return $this->render('update', [
             'model' => $model,

@@ -4,12 +4,15 @@ namespace frontend\controllers;
 
 use common\models\tables\ImageUpload;
 use common\models\tables\Tasks;
+use common\models\TasksSearch;
 use common\models\tables\Users;
+use common\models\User;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+
 
 class TaskController extends Controller
 {
@@ -25,23 +28,25 @@ class TaskController extends Controller
         $provider = new ActiveDataProvider([
             'query' => Tasks::getTaskCurrentMonth($month, $id)
         ]);
-        $users = ArrayHelper::map(Users::find()->all(), 'id', 'username');
 
+        $user = ArrayHelper::map(User::find()->all(), 'id', 'username');
+//var_dump($user);
         return $this->render('index', [
             'provider' => $provider,
-            'users' => $users
+            'user' => $user
         ]);
     }
 
     public function actionView($id)
     {
-        $model = Tasks::findOne($id);
-        return $this->render('view', ['model' => $model]);
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
     }
 
     protected function findModel($id)
     {
-        if (($model = tasks::findOne($id)) !== null) {
+        if (($model = Tasks::findOne($id)) !== null) {
             return $model;
         }
         throw new NotFoundHttpException('The requested page does not exist.');

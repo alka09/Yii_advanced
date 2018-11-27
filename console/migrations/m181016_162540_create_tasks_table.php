@@ -18,7 +18,7 @@ class m181016_162540_create_tasks_table extends Migration
             'date' => $this->dateTime(),
             'description' => $this->string(1024)->notNull(),
             'user_id' => $this->integer(),
-            'create_at' => $this->DATETIME(),
+            'created_at' => $this->DATETIME(),
             'updated_at' => $this->DATETIME(),
             'image' => $this->string(),
         ]);

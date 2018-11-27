@@ -42,7 +42,7 @@ class TasksSearch extends Tasks
      */
     public function search($params)
     {
-        $query = Tasks::find();
+        $query = tasks::find();
 
         // add conditions that should always apply here
 
@@ -61,6 +61,7 @@ class TasksSearch extends Tasks
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'name' => $this->name,
             'date' => $this->date,
             'user_id' => $this->user_id,
         ]);

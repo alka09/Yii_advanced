@@ -8,6 +8,7 @@ use yii\db\Expression;
 use yii\db\ActiveRecord;
 use common\models\tables\ImageUpload;
 
+
 /**
  * This is the model class for table "tasks".
  *
@@ -70,8 +71,6 @@ class Tasks extends ActiveRecord
             [['name'], 'string', 'max' => 128],
             [['description'], 'string', 'max' => 1024],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
-            [['fromDate'], 'safe', 'on' => 'search'],
-            [['toDate'], 'safe', 'on' => 'search']
         ];
     }
 
@@ -98,10 +97,17 @@ class Tasks extends ActiveRecord
         return $this->hasOne(Users::className(), ['id' => 'user_id']);
     }
 
+    public static function getUsers($id)
+    {
+        return static::find()
+            ->where(['user_id' => $id])
+            ->all();
+    }
+
     public static function getTaskCurrentMonth($month, $id)
     {
         return static::find()
-            ->where(["MONTH(date)" => $month, '$user_id'=> $id]);
+            ->where(["MONTH(date)" => $month, 'user_id' => $id]);
     }
 
     public function saveImage($filename)

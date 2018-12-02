@@ -18,6 +18,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Tasks', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
+
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -48,4 +50,5 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
+
 </div>

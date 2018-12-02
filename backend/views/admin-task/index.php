@@ -1,7 +1,6 @@
 <?php
-
-use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\TasksSearch */
@@ -24,13 +23,21 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
             'name',
+            'description:ntext',
             'date',
-            'description',
-            'image',
-            'user_id',
+            'responsible_id' => [
+                'label' => 'Responsible',
+                //'value' => function ($data) {
+                 //   return $data->user->username;
+                //}
+            ],
+            'initiator_id' => [
+                'label' => 'Initiator',
+                //'value' => function ($data) {
+                 //   return $data->user->username;
+                //}
+            ],
             [
             'format' => 'html',
                 'label' => 'Image',

@@ -9,17 +9,14 @@ use yii\web\IdentityInterface;
 use yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "user".
- * @property integer $id
+ * This is the model class for table "users".
+ *
+ * @property int $id
  * @property string $username
  * @property string $password_hash
- * @property string $password_reset_token
+ * @property int $role_id
  * @property string $email
- * @property string $auth_key
- * @property integer $status
- * @property integer $created_at
- * @property integer $updated_at
- * @property string $password write-only password
+ * @property Tasks[] $tasks
  */
 class Users extends ActiveRecord
 {
@@ -50,10 +47,10 @@ class Users extends ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'password', 'email'], 'required'],
+            [['username', 'password_hash', 'email'], 'required'],
             [['role_id'], 'integer'],
             [['username'], 'unique'],
-            [['email'], 'string', 'max' => 128],
+            [['email'], 'unique', 'targetClass' => Users::className(), 'message' => 'Данный email уже зарегестрирован'],
             [['role_id'], 'exist', 'skipOnError' => true, 'targetClass' => Roles::className(), 'targetAttribute' => ['role_id' => 'id']],
         ];
     }
@@ -66,7 +63,7 @@ class Users extends ActiveRecord
         return [
             'id' => 'ID',
             'username' => 'UserName',
-            'password' => 'Password',
+            'password_hash' => 'Password_hash',
             'role_id' => 'Role ID',
             'email' => 'Email',
         ];
@@ -82,7 +79,7 @@ class Users extends ActiveRecord
 
     public function getTasks()
     {
-        return $this->hasMany(Tasks::className(), ['user_id' => 'id']);
+        return $this->hasMany(Tasks::className(), ['responsible_id' => 'id']);
     }
 
 
@@ -90,13 +87,10 @@ class Users extends ActiveRecord
     {
         $user = new Users();
         $user->username = $this->username;
-        $user->password = \Yii::$app->security->generatePasswordHash($this->password);
+        $user->password_hash = \Yii::$app->security->generatePasswordHash($this->password_hash);
         $user->role_id = $this->role_id;
         $user->email = $this->email;
 //        var_dump($user->save());
         $user->save();
     }
-
-
-
 }

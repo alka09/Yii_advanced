@@ -3,14 +3,14 @@
 namespace frontend\controllers;
 
 use common\models\tables\ImageUpload;
+use common\models\tables\Chat;
+use Yii;
 use common\models\tables\Tasks;
-use common\models\TasksSearch;
 use common\models\tables\Users;
 use common\models\User;
-use Yii;
 use yii\data\ActiveDataProvider;
-use yii\helpers\ArrayHelper;
 use yii\web\Controller;
+use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 
 
@@ -44,6 +44,17 @@ class TaskController extends Controller
         ]);
     }
 
+    public function actionOne($id)
+    {
+        $model = Tasks::findOne($id);
+        $channel ="task_{$id}";
+        return $this->render("one", [
+            'model' => $model,
+            'history' => Chat::getChannelHistory($channel),
+            'channel' => $channel,
+        ]);
+    }
+
     protected function findModel($id)
     {
         if (($model = Tasks::findOne($id)) !== null) {
@@ -51,6 +62,14 @@ class TaskController extends Controller
         }
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    /**
+     * Updates an existing tasks model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
 
     public function actionUpdate($id)
     {
@@ -66,6 +85,14 @@ class TaskController extends Controller
             'users' => $users
         ]);
     }
+
+    /**
+     * Updates an existing tasks model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
 
     public function actionDelete($id)
     {

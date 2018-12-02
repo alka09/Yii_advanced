@@ -16,11 +16,13 @@ use yii\widgets\ActiveForm;
     ]); ?>
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
-    <?= $form->field($model, 'user_id')->dropDownList($users) ?>
+    <?= $form->field($model, 'responsible_id')->dropDownList($users)->label('Responsible') ?>
+    <?= $form->field($model, 'initiator_id')->dropDownList($users)->label('Initiator') ?>
     <?= $form->field($model, 'date')->widget(\yii\jui\DatePicker::class, [
             'dateFormat' => 'yyyy-MM-dd',
             'language' => 'ru']
     ) ?>
+
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

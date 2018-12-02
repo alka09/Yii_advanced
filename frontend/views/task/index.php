@@ -17,10 +17,16 @@ use yii\grid\GridView;
             'name',
             'description:ntext',
             'date',
-            'user_id' => [
-                'label' => 'User ID',
+            'responsible_id' => [
+                'label' => 'Responsible',
                 'value' => function ($data) {
-                    return $data->user->username;
+                    return $data->responsible->username;
+                },
+            ],
+            'initiator_id' => [
+                'label' => 'Initiator',
+                'value' => function ($data) {
+                    return $data->initiator->username;
                 }
             ],
             ['class' => 'yii\grid\ActionColumn'],

@@ -68,19 +68,18 @@ class UsersController extends Controller
     {
         $model = new Users();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->password_hash = \Yii::$app->security->generatePasswordHash($model->password_hash);
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
-
         $roles = ArrayHelper::map(Roles::find()->all(), 'id', 'name');
-
 
         return $this->render('create', [
             'model' => $model,
             'roles' => $roles
         ]);
-
     }
 
     /**

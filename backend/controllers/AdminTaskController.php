@@ -74,7 +74,7 @@ class AdminTaskController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            $user = Users::findOne($model->user_id);
+            $user = Users::findOne($model->responsible_id);
 
 
             $message = "Уважаемый {$user->username}! На вас поставлена новая задача {$model->name}. 
@@ -123,6 +123,14 @@ class AdminTaskController extends Controller
 
         ]);
     }
+
+    /**
+     * Deletes an existing tasks model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
 
     public function actionDelete($id)
     {

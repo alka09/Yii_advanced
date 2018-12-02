@@ -2,11 +2,10 @@
 
 namespace common\models\tables;
 
-use Symfony\Component\DomCrawler\Image;
+use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 use yii\db\ActiveRecord;
-use common\models\tables\ImageUpload;
 
 
 /**
@@ -14,11 +13,17 @@ use common\models\tables\ImageUpload;
  *
  * @property int $id
  * @property string $name
- * @property string $date
  * @property string $description
- * @property int $user_id
- * @property string $image
+ * @property string $date
+ * @property int $responsible_id
+ * @property int $initiator_id
+ * @property int $project_id
+ * @property string $created_at
+ * @property string $updated_at
  *
+// * @property Chat[] $chats
+// * @property User $initiator
+// * @property User $responsible
  * @property Users $user
  */
 class Tasks extends ActiveRecord
@@ -29,8 +34,6 @@ class Tasks extends ActiveRecord
         return [
             [
                 'class' => TimestampBehavior::className(),
-                /*'createdAtAttribute' => 'create_time',
-                'updatedAtAttribute' => 'update_time',*/
                 'value' => new Expression('NOW()'),
             ],
         ];
@@ -67,10 +70,11 @@ class Tasks extends ActiveRecord
             [['name', 'description'], 'required'],
             [['date'], 'default', 'value' => date('Y-m-d:H:i:s')],
             [['date'], 'compare', 'compareValue' => date('Y-m-d'), 'operator' => '>='],
-            [['user_id'], 'integer'],
+            [['date', 'created_at', 'updated_at'], 'safe'],
             [['name'], 'string', 'max' => 128],
-            [['description'], 'string', 'max' => 1024],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['description'], 'string'],
+            [['initiator_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['initiator_id' => 'id']],
+            [['responsible_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['responsible_id' => 'id']],
         ];
     }
 
@@ -83,31 +87,42 @@ class Tasks extends ActiveRecord
             'id' => 'ID',
             'name' => 'Name',
             'date' => 'Date',
-            'image' => 'Image',
             'description' => 'Description',
-            'user_id' => 'User ID',
+            'responsible_id' => 'Responsible ID',
+            'initiator_id' => 'Initiator ID',
+            'project_id' => 'Project ID',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUser()
+    public function getInitiator()
     {
-        return $this->hasOne(Users::className(), ['id' => 'user_id']);
+        return $this->hasOne(Users::className(), ['id' => 'initiator_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getResponsible()
+    {
+        return $this->hasOne(Users::className(), ['id' => 'responsible_id']);
     }
 
     public static function getUsers($id)
     {
         return static::find()
-            ->where(['user_id' => $id])
+            ->where(['responsible_id' => $id])
             ->all();
     }
 
     public static function getTaskCurrentMonth($month, $id)
     {
         return static::find()
-            ->where(["MONTH(date)" => $month, 'user_id' => $id]);
+            ->where(["MONTH(date)" => $month, 'responsible_id' => $id]);
     }
 
     public function saveImage($filename)

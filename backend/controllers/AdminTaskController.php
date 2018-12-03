@@ -178,7 +178,7 @@ return $this->redirect(['view', 'id' => $task->id]);
     {
         $realUpdate = date("H:i:s");
         return $this->render('time', [
-            'time' => $time
+            'time' => $realUpdate,
         ]);
     }
 

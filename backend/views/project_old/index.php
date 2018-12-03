@@ -1,9 +1,8 @@
 <?php
 
-use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\grid\GridView;
 use yii\widgets\Pjax;
-
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\ProjectSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -31,15 +30,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'description:ntext',
             'creator',
-            'status' => [
-                'attribute' => 'status',
-                'value' => function ($model) {
-                    return $model->status;
-                },
-                'filter' => Html::activeDropDownList($searchModel, 'status', $statusArray, ['class' => 'form-control', 'prompt' =>  'Статус']),
-            ],
+            'status',
             //'created_at',
             //'updated_at',
+
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

@@ -26,6 +26,8 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
+    <?= Pjax::begin(); ?>
+
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [

@@ -8,12 +8,14 @@ $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
 
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
+    <div class="col-lg-12">
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
+        <?php use yii\helpers\Html; ?>
+        <h2>Администрирование</h2>
+        <p><?= Html::a('Users' ,['users/'], ['class' => 'btn '])  ?></p>
+        <p><?= Html::a('Admin-task' ,['admin-task/'], ['class' => 'btn ']) ?></p>
+        <p><?= Html::a('Roles' ,['roles/'], ['class' => 'btn ']) ?></p>
+        <p><?= Html::a('Project' ,['project/'], ['class' => 'btn ']) ?></p>
     </div>
 
     <div class="body-content">
@@ -49,15 +51,6 @@ $this->title = 'My Yii Application';
 
                 <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
             </div>
-            <div class="col-lg-4">
-                <?php use yii\helpers\Html; ?>
-
-                <h2>Администрирование</h2>
-                <p><?= Html::a('users' ,['users/'], ['class' => 'btn btn-success'])  ?></p>
-                <p><?= Html::a('admin-task' ,['admin-task/'], ['class' => 'btn btn-success']) ?></p>
-                <p><?= Html::a('roles' ,['roles/'], ['class' => 'btn btn-success']) ?></p>
-
-             </div>
         </div>
 
     </div>

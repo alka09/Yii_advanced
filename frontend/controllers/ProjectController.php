@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\controllers;
+namespace frontend\controllers;
 
 use common\models\tables\Tasks;
 use common\models\tables\Users;

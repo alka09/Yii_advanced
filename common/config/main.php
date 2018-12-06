@@ -6,6 +6,10 @@ return [
     ],
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
+        'bot' => [
+            'class' => \SonkoDmitry\Yii\TelegramBot\Component::class,
+            'apiToken' => '',
+        ],
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
             'cache' => 'cache' //Включаем кеширование

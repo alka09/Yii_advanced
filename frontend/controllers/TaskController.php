@@ -10,14 +10,18 @@ use common\models\tables\Tasks;
 use common\models\tables\Users;
 use common\models\User;
 use yii\data\ActiveDataProvider;
+use yii\rest\ActiveController;
 use yii\web\Controller;
 use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use SonkoDmitry\Yii\TelegramBot\Component;
 
 
-class TaskController extends Controller
+class TaskController extends ActiveController
 {
+
+    public $modelClass = Tasks::class;
+
     public function actionIndex()
     {
 

@@ -53,19 +53,16 @@ class Message extends \yii\db\ActiveRecord
         return $this->hasOne(Users::className(), ['id' => 'user_id']);
     }
 
-//    public function fields()
-//    {
-//        return [
-//            'title',
-//            'user' => function () {
-//                return $this->user;
-//            }
-//        ];
-//    }
+    public function fields()
+    {
+        {
+            return ['id', 'email', 'username'];
+        }
+    }
     public function extraFields()
     {
         return [
-            'user'
+            'status'
         ];
     }
 

@@ -21,9 +21,9 @@ use yii\db\ActiveRecord;
  * @property string $created_at
  * @property string $updated_at
  *
-// * @property Chat[] $chats
-// * @property User $initiator
-// * @property User $responsible
+ * @property Chat[] $chats
+ * @property Users $initiator
+ * @property Users $responsible
  * @property Users $user
  */
 class Tasks extends ActiveRecord
@@ -96,6 +96,14 @@ class Tasks extends ActiveRecord
         ];
     }
 
+    public static function getUserEmail($event)
+    {
+        return static::find()
+            ->where(['responsible_id' => $event->sender->responsible_id])
+            ->with('user')
+            ->one();
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -141,6 +149,15 @@ class Tasks extends ActiveRecord
     /**
      *
      */
+
+   // public static function getUserEmail($event)
+    //{
+    //    return static::find()
+    //        ->where(['responsible_id' => $event->sender->responsible_id])
+    //        ->with('user')
+   //         ->one();
+   // }
+
     public function deleteImage()
     {
         $imageUploadModel = new ImageUpload();

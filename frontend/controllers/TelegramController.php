@@ -7,6 +7,11 @@ use yii\web\Controller;
 
 class TelegramController extends Controller
 {
+    /**
+     * @return string
+     * @throws \TelegramBot\Api\Exception
+     * @throws \TelegramBot\Api\InvalidArgumentException
+     */
     public function actionReceive()
     {
         /**@var Component $bot */
@@ -23,18 +28,21 @@ class TelegramController extends Controller
 
         foreach ($updates as $update) {
             $message = $update->getMessage();
-            $username = $message->getFrom()->getUsername() ;
+            $username = $message->getFrom()->getUsername();
+            //$user_id = $message->getFrom()->getId();
             $messages[] = [
                 'text' => $message->getText(),
-                'username'=>$username
+                'username' => $username,
+                //'user_id' => $user_id,
             ];
         }
+        //var_dump($messages); exit;
         return $this->render("receive", ['messages' => $messages]);
     }
 
     public function actionSend(){
         /**@var Component $bot */
         $bot = \Yii::$app->bot;
-        $bot->sendMessage(357183223, 'Это бот или не бот?');
+        $bot->sendMessage(357183223, 'Это бот или не бот?')   ;
     }
 }

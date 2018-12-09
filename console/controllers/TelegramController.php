@@ -2,6 +2,7 @@
 
 namespace console\controllers;
 
+use common\models\tables\TelegramSubscribe;
 use yii\console\Controller;
 use common\models\tables\TelegramOffset;
 use SonkoDmitry\Yii\TelegramBot\Component;
@@ -28,7 +29,6 @@ class TelegramController extends Controller
         if ($updCount > 0){
             echo "Новых сообщений: " . $updCount . PHP_EOL;
             foreach ($updates as $update){
-
                 $this->updateOffset($update);
                 if ($message = $update->getMessage()) {
                     $this->processCommand($message);
@@ -71,14 +71,19 @@ class TelegramController extends Controller
             case '/help':
                 $responce = "Доступные команды: \n";
                 $responce .= "/help - список команд \n";
-                $responce .= "/projec_create ##project_name##- создание нового проекта\n";
+                $responce .= "/project_create ##project_name##- создание нового проекта\n";
                 $responce .= "/task_create ##responcible## - создание таска \n";
                 $responce .= "/sp_create - подписка на создание проекта \n";
                 break;
             case '/sp_create':
-                $responce .= "Вы подписаны на оповещение о создании проекта";
+                echo $message->getFrom()->getId();
+                $model = new TelegramSubscribe([
+                    'chat_id' => $message->getFrom()->getId(),
+                    'channel' => TelegramSubscribe::CHANNEL_PROJECT_CREATE
+                ]);
+                $model->save();
+                $responce = "Вы подписаны на оповещение о создании проекта";
                 break;
-
         }
         $this->bot->sendMessage($message->getFrom()->getId(), $responce);
     }

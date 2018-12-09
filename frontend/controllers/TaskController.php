@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use common\models\tables\ImageUpload;
 use common\models\tables\Chat;
+use common\models\tables\TelegramSubscribe;
 use Yii;
 use common\models\tables\Tasks;
 use common\models\tables\Users;
@@ -12,6 +13,7 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
+use SonkoDmitry\Yii\TelegramBot\Component;
 
 
 class TaskController extends Controller
@@ -134,6 +136,10 @@ class TaskController extends Controller
 
         //var_dump($number);
         exit;
+
+    }
+
+    public function actionTest(){
 
     }
 }

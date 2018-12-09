@@ -2,20 +2,20 @@
 return [
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
+        '@npm' => '@vendor/npm-asset',
     ],
+    'bootstrap' => ['CreateProjectComponent'],
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
-        'bot' => [
-            'class' => \SonkoDmitry\Yii\TelegramBot\Component::class,
-            'apiToken' => '',
+        'CreateProjectComponent' => [
+            'class' => \common\components\CreateProjectComponent::class,
         ],
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
             'cache' => 'cache' //Включаем кеширование
         ],
         'cache' => [
-            'class' => 'yii\caching\FileCache',
+            'class' => \common\components\CreateProjectComponent::class,
         ],
     ],
 ];

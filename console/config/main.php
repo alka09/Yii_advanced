@@ -22,6 +22,10 @@ return [
           ],
     ],
     'components' => [
+        'bot' => [
+            'class' => \SonkoDmitry\Yii\TelegramBot\Component::class,
+            'apiToken' => '',
+        ],
         'log' => [
             'targets' => [
                 [

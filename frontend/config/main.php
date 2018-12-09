@@ -58,7 +58,8 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                ['class' => \yii\rest\UrlRule::class, 'controller' => ['message']]
+                ['class' => \yii\rest\UrlRule::class, 'controller' => ['message']],
+                ['class' => \yii\rest\UrlRule::class, 'controller' => ['task']]
             ],
         ],
     ],

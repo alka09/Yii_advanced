@@ -11,10 +11,15 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
+    'modules' => [
+        'v1' => [
+            'class' => 'frontend\modules\v1\Module',
+        ],
+    ],
     'components' => [
         'bot' => [
             'class' => \SonkoDmitry\Yii\TelegramBot\Component::class,
-            'apiToken' => '',
+            'apiToken' => '707273881:AAFZxLET7d44Huj01v2wtqtbgPWaDBFoagg',
         ],
         'request' => [
             'baseUrl' => '',
@@ -58,7 +63,7 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                ['class' => \yii\rest\UrlRule::class, 'controller' => ['message']],
+                ['class' => \yii\rest\UrlRule::class, 'controller' => ['v1/message']],
                 ['class' => \yii\rest\UrlRule::class, 'controller' => ['task']]
             ],
         ],

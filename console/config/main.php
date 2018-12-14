@@ -24,7 +24,7 @@ return [
     'components' => [
         'bot' => [
             'class' => \SonkoDmitry\Yii\TelegramBot\Component::class,
-            'apiToken' => '',
+            'apiToken' => '707273881:AAFZxLET7d44Huj01v2wtqtbgPWaDBFoagg',
         ],
         'log' => [
             'targets' => [

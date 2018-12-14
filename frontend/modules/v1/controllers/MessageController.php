@@ -1,14 +1,13 @@
 <?php
 
-namespace frontend\controllers;
+namespace frontend\modules\v1\controllers;
 
+use common\models\filters\MessageFilter;
 use common\models\tables\Message;
 use yii\data\ActiveDataProvider;
 use yii\filters\auth\HttpBasicAuth;
 use yii\rest\ActiveController;
-use common\models\tables\Users;
 use common\models\User;
-use yii\web\ForbiddenHttpException;
 
 class MessageController extends ActiveController
 {
@@ -38,10 +37,12 @@ class MessageController extends ActiveController
     }
 
     public function actionIndex(){
-        $query = Message::find();
-        $query->where(['user_id' => 2]);
+        $filter = \Yii::$app->request->get('filter');
+
+        //var_dump($filter); exit;
+        $query = Message::find();;
         return new ActiveDataProvider([
-            'query' => $query
+            'query' => (new MessageFilter)->filter($filter, $query)
         ]);
     }
 

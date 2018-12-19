@@ -2,10 +2,10 @@
 
 namespace backend\controllers;
 
+use common\models\tables\Project;
 use common\models\tables\Tasks;
 use common\models\tables\Users;
 use common\models\tables\ImageUpload;
-use common\models\User;
 use common\models\TasksSearch;
 use Yii;
 use yii\filters\VerbFilter;
@@ -72,30 +72,17 @@ class AdminTaskController extends Controller
     {
         $model = new Tasks();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
-            $user = Users::findOne($model->responsible_id);
-
-
-            $message = "Уважаемый {$user->username}! На вас поставлена новая задача {$model->name}. 
-            Дедлайн до {$model->date}";
-
-            Yii::$app->mailer
-                ->compose()
-                ->setTo($user->email)
-                ->setSubject('Новая задача')
-                ->setTextBody($message)
-                ->send();
-
-
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+        $model->save();
+        return $this->redirect(['view', 'id' => $model->id]);
         }
-
         $users = ArrayHelper::map(Users::find()->all(), 'id', 'username');
+        $project = ArrayHelper::map(Project::find()->all(), 'id', 'name');
 
         return $this->render('create', [
             'model' => $model,
             'users' => $users,
+            'project' => $project,
         ]);
     }
 
@@ -116,11 +103,12 @@ class AdminTaskController extends Controller
         }
 
         $users = ArrayHelper::map(Users::find()->all(), 'id', 'username');
+        $project = ArrayHelper::map(Project::find()->all(), 'id', 'name');
 
         return $this->render('update', [
             'model' => $model,
             'users' => $users,
-
+            'project' => $project,
         ]);
     }
 

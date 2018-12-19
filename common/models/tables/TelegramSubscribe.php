@@ -3,6 +3,7 @@
 namespace common\models\tables;
 
 use SonkoDmitry\Yii\TelegramBot\Component;
+use yii\db\ActiveRecord;
 use Yii;
 
 
@@ -69,12 +70,12 @@ class TelegramSubscribe extends \yii\db\ActiveRecord
         $addSubscriber->save();
     }
 
-    public function delSubscriber(){
+    public function getDelSubscriber(){
         $id = TelegramSubscribe::getChatId();
         $delChatId = TelegramSubscribe::find()
             ->where(['chat_id' => $id])
             ->one();
-        $delChatId->delete();
+        //$delChatId->delete();
     }
     public static function getSendSubscriber()
     {

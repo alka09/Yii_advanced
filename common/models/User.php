@@ -186,4 +186,12 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->password_reset_token = null;
     }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+        $auth = Yii::$app->authManager;
+        $projectManager = $auth->getRole('user'); // Получаем роль projectManager
+        $auth->assign($projectManager, $this->id); // Назначаем пользователю, которому принадлежит модель User
+    }
 }

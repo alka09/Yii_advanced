@@ -2,79 +2,66 @@
 
 namespace console\controllers;
 
+use Yii;
 use yii\console\Controller;
-use common\rbac\UserGroupRule;
+use common\rbac\UserRoleRule;
 
 
 class RbacController extends Controller
 {
+    public function actionInit(){
 
-    public function actionIndex()
-    {
-        $authManager = \Yii::$app->authManager;
+        $auth = Yii::$app->authManager;
 
-//create roles
-        $guest = $authManager->createRole('guest');
-        $user = $authManager->createRole('user');
-        $admin = $authManager->createRole('admin');
-        $productManager = $authManager->createRole('productManager');
+        $auth->removeAll(); //на всякий случай удаляем старые данные из БД
 
-        //create permission
-        $login = $authManager->createPermission('login');
-        $logout = $authManager->createPermission('logout');
-        $signUp = $authManager->createPermission('sign-up');
-        $index = $authManager->createPermission('index');
-        $view = $authManager->createPermission('view');
-        $createTask = $authManager->createPermission('createTask');
-        $updateTask = $authManager->createPermission('updateTask');
-        $deleteTask = $authManager->createPermission('deleteTask');
+        //Создаем роли
+        $admin = $auth->createRole('admin');
+        $admin->description = 'Администратор';
+        $user = $auth->createRole('user');
+        $user->description = 'Пользователь';
+        $projectManager = $auth->createRole('projectManager');
+        $projectManager->description = 'Менеджер проекта';
 
-        //add permission in Yii::$app->authManager
-        $authManager->add($login);
-        $authManager->add($logout);
-        $authManager->add($signUp);
-        $authManager->add($index);
-        $authManager->add($view);
-        $authManager->add($createTask);
-        $authManager->add($updateTask);
-        $authManager->add($deleteTask);
+        $auth->add($admin);
+        $auth->add($user);
+        $auth->add($projectManager);
 
-        //add rule
-        $userGroupRule = new \app\rbac\UserGroupRule();
-        $authManager->add($userGroupRule);
+        //Создаем разрешения
+        $viewAdminPage =  $auth->createPermission('viewAdminPage');
+        $viewAdminPage->description = 'Просмотр админки';
 
-        //add rule "UserGroupRule" in roles
-        $guest->ruleName = $userGroupRule->name;
-        $user->ruleName = $userGroupRule->name;
-        $productManager->ruleName = $userGroupRule->name;
-        $admin->ruleName = $userGroupRule->name;
+        $updateProject = $auth->createPermission('updateProject');
+        $updateProject->description = 'Редактирование проекта';
 
-        //add role in Yii::$app->authManager
-        $authManager->add($guest);
-        $authManager->add($user);
-        $authManager->add($productManager);
-        $authManager->add($admin);
+        $deleteProject = $auth->createPermission('deleteProjet');
+        $deleteProject->description = 'Удаление проекта';
 
-        //распределяем роли
-        //guest
-        $authManager->addChild($guest, $login);
-        $authManager->addChild($guest, $logout);
-        $authManager->addChild($guest, $signUp);
-        $authManager->addChild($guest, $index);
+        $updateTask = $auth->createPermission('updateTask');
+        $updateTask->description = 'Редактирование задачи';
 
-        //user
-        $authManager->addChild($user, $view);
-        $authManager->addChild($user, $guest);
 
-        //productManager
-        $authManager->addChild($productManager, $createTask);
-        $authManager->addChild($productManager, $user);
+        $auth->add($viewAdminPage);
+        $auth->add($updateProject);
+        $auth->add($deleteProject);
+        $auth->add($updateTask);
 
-        //admin
-        $authManager->addChild($admin, $updateTask);
-        $authManager->addChild($admin, $deleteTask);
-        $authManager->addChild($admin, $productManager);
+        //Присваиваем разрешения ролям (наследования)
+        $auth->addChild($projectManager, $updateProject);
+        $auth->addChild($projectManager, $deleteProject);
+        $auth->addChild($projectManager, $updateTask);
 
+        $auth->addChild($user, $updateTask);
+
+        $auth->addChild($admin, $viewAdminPage);
+        $auth->addChild($admin, $projectManager);
+
+        $auth->assign($admin, 7);
+
+        // Add rule, based on UserExt->role === $user->role
+        $UserRoleRule = new UserRoleRule();
+        $auth->add($UserRoleRule);
 
     }
+
 }

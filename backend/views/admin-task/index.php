@@ -31,15 +31,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'date',
             'responsible_id' => [
                 'label' => 'Responsible',
-                //'value' => function ($data) {
-                 //   return $data->user->username;
-                //}
             ],
             'initiator_id' => [
                 'label' => 'Initiator',
-                //'value' => function ($data) {
-                 //   return $data->user->username;
-                //}
             ],
             [
             'format' => 'html',

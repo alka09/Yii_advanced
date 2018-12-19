@@ -31,7 +31,7 @@ return [
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
-            'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
+            'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true, 'domain' => '.yii.local'],
         ],
         'session' => [
             // this is the name of the session cookie used for login on the frontend
@@ -64,7 +64,7 @@ return [
             'showScriptName' => false,
             'rules' => [
                 ['class' => \yii\rest\UrlRule::class, 'controller' => ['v1/message']],
-                ['class' => \yii\rest\UrlRule::class, 'controller' => ['task']]
+                //['class' => \yii\rest\UrlRule::class, 'controller' => ['task']]
             ],
         ],
     ],

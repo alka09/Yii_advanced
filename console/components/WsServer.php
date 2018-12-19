@@ -1,8 +1,10 @@
 <?php
 namespace console\components;
+
 use common\models\tables\Chat;
 use Ratchet\ConnectionInterface;
 use Ratchet\MessageComponentInterface;
+
 class WsServer implements MessageComponentInterface
 {
     protected $clients = [
@@ -31,7 +33,7 @@ class WsServer implements MessageComponentInterface
     function onClose(ConnectionInterface $conn)
     {
         $this->clients->detach($conn);
-        echo "user {$conn->resourceId} disconnect \n";
+        //echo "user {$conn->resourceId} disconnect \n";
     }
     function onError(ConnectionInterface $conn, \Exception $e)
     {

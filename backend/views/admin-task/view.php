@@ -26,8 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <?= Pjax::begin(); ?>
-
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -38,11 +36,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'responsible_id' =>
                 [
                     'label' => 'Responsible',
-                    'value' => $model->user->username
+                    'value' => $model->responsible->username
                 ],
             'initiator_id' =>[
                 'label' => 'Initiator',
-                'value' => $model->user->username
+                'value' => $model->initiator->username
             ],
             'created_at',
             'updated_at'

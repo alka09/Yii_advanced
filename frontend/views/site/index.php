@@ -1,5 +1,5 @@
 <?php
-
+use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 
 $this->title = 'My Yii Application';
@@ -8,6 +8,12 @@ $this->title = 'My Yii Application';
 
     <div class="jumbotron">
         <h1>Congratulations!</h1>
+
+        <?php Pjax::begin() ?>
+        <?= \yii\helpers\Html::a("Часы", ['pjax/hours'], ['class' => 'btn btn-success']) ?>
+        <?= \yii\helpers\Html::a("Минуты", ['pjax/minutes'], ['class' => 'btn btn-warning']) ?>
+        <h2>Текущее время <?= $time ?></h2>
+        <?php Pjax::end() ?>
         <?= \yii\helpers\Html::a('Список задач', ['task/'], ['class' => 'btn btn-lg btn-success'])?>
 
         <!--       <p><a class="btn btn-lg btn-success" href="/?r=task">Список задач</a></p>-->

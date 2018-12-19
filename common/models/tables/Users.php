@@ -49,7 +49,8 @@ class Users extends ActiveRecord
         return [
             [['username', 'password_hash', 'email'], 'required'],
             [['role_id'], 'integer'],
-            [['username'], 'unique'],
+            [['email'], 'email'],
+            [['username'], 'unique', 'targetClass' => Users::className(), 'message' => 'Этот логин уже занят'],
             [['email'], 'unique', 'targetClass' => Users::className(), 'message' => 'Данный email уже зарегестрирован'],
             [['role_id'], 'exist', 'skipOnError' => true, 'targetClass' => Roles::className(), 'targetAttribute' => ['role_id' => 'id']],
         ];
@@ -83,13 +84,14 @@ class Users extends ActiveRecord
     }
 
 
-    public function addUser()
+    public function getAddUser()
     {
         $user = new Users();
         $user->username = $this->username;
         $user->password_hash = \Yii::$app->security->generatePasswordHash($this->password_hash);
         $user->role_id = $this->role_id;
         $user->email = $this->email;
+        return $user->save();
 //        var_dump($user->save());
         $user->save();
     }

@@ -15,7 +15,11 @@ return [
             'cache' => 'cache' //Включаем кеширование
         ],
         'cache' => [
-            'class' => \common\components\CreateProjectComponent::class,
+            'class' => 'yii\caching\FileCache',
+        ],
+        'bot' => [
+            'class' => \SonkoDmitry\Yii\TelegramBot\Component::class,
+            'apiToken' => '707273881:AAFZxLET7d44Huj01v2wtqtbgPWaDBFoagg'
         ],
     ],
 ];

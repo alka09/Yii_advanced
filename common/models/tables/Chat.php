@@ -22,7 +22,7 @@ class Chat extends \yii\db\ActiveRecord
     {
         return [
             [
-                'class' => TimestampBehavior::class(),
+                'class' => TimestampBehavior::class,
                 'createdAtAttribute' => 'created_if',
                 'updatedAtAttribute' => false,
                 'value' => new Expression('NOW()'),

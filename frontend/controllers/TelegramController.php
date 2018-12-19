@@ -2,7 +2,8 @@
 
 namespace frontend\controllers;
 
-use SonkoDmitry\Yii\TelegramBot\Component;
+use common\models\tables\TelegramMessage;
+use common\models\tables\TelegramMessages;
 use yii\web\Controller;
 
 class TelegramController extends Controller
@@ -12,37 +13,19 @@ class TelegramController extends Controller
      * @throws \TelegramBot\Api\Exception
      * @throws \TelegramBot\Api\InvalidArgumentException
      */
+
     public function actionReceive()
     {
-        /**@var Component $bot */
-        $bot = \Yii::$app->bot;
-        $bot->setCurlOption(CURLOPT_TIMEOUT, 20);
-        $bot->setCurlOption(CURLOPT_CONNECTTIMEOUT, 10);
-        $bot->setCurlOption(CURLOPT_HTTPHEADER, ['Expect:']);
-
-        $updates = $bot->getUpdates();
-        //var_dump($updates);
-        //exit;
-
-        $messages = [];
-
-        foreach ($updates as $update) {
-            $message = $update->getMessage();
-            $username = $message->getFrom()->getUsername();
-            //$user_id = $message->getFrom()->getId();
-            $messages[] = [
-                'text' => $message->getText(),
-                'username' => $username,
-                //'user_id' => $user_id,
-            ];
-        }
-        //var_dump($messages); exit;
-        return $this->render("receive", ['messages' => $messages]);
+        $messages = TelegramMessages::getTelegramMessages();
+        return $this->render('receive', [
+            'messages' => $messages
+        ]);
     }
 
-    public function actionSend(){
-        /**@var Component $bot */
-        $bot = \Yii::$app->bot;
-        $bot->sendMessage(357183223, 'Это бот или не бот?')   ;
+    public function actionSend()
+    {
+        TelegramMessages::getSendUser(357183223, 'Это бот или не бот?');
     }
 }
+
+

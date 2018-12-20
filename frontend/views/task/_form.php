@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 /* @var $model common\models\tables\tasks */
 /* @var $form yii\widgets\ActiveForm */
 /* @var $users  array */
+/* @var $project  array */
 ?>
 
 <div class="tasks-form">
@@ -19,12 +20,12 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'initiator_id')->dropDownList($users)->label('Initiator') ?>
 
+    <?= $form->field($model, 'project_id')->dropDownList($project)->label('Project') ?>
+
     <?= $form->field($model, 'date')->widget(\yii\jui\DatePicker::class, [
         'dateFormat' => 'yyyy-MM-dd',
         'language' => 'ru'
     ]) ?>
-
-    <?= $form->field($model, 'user_id')->dropDownList($users) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

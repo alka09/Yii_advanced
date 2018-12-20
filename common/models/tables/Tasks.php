@@ -141,22 +141,29 @@ class Tasks extends ActiveRecord
             ->where(["MONTH(date)" => $month, 'responsible_id' => $id]);
     }
 
-    public function saveImage($filename)
-    {
-
-        $this->image = $filename;
-
-        return $this->save(false);
+    public static function getTaskInProject(){
+        $project = Yii::$app->request->get('project_id');
+        return static::find()
+            ->where(['project_id' => $project])
+            ->all();
     }
 
-    public function getImage()
-    {
-        return ($this->image) ? '/uploads' . $this->image : '/no-image.png';
-    }
+     public function saveImage($filename)
+     {
 
-    /**
-     *
-     */
+         $this->image = $filename;
+
+         return $this->save(false);
+     }
+
+     public function getImage()
+     {
+         return ($this->image) ? '/uploads' . $this->image : '/no-image.png';
+   }
+
+     /**
+      *
+      */
 
     /*public static function getUserEmail($event)
     {

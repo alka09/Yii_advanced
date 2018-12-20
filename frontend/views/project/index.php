@@ -27,8 +27,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'name',
+            //'id',
+            'name' => [
+                    'label' => 'project',
+                'format' => 'raw',
+                'value' => function($data){
+        $id = $data->id;
+        $url = "http://front.yii.local/task?project_id=$id";
+        $name = $data->name;
+        return Html::a($name, $url, ['title' => 'Go']);
+                }
+            ],
             'description:ntext',
             'creator',
             'status' => [

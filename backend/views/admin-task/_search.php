@@ -6,6 +6,7 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model common\models\TasksSearch */
 /* @var $form yii\widgets\ActiveForm */
+
 ?>
 
 <div class="tasks-search">
@@ -19,13 +20,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name') ?>
 
-    <?= $form->field($model, 'description') ?>
-
     <?= $form->field($model, 'date') ?>
 
     <?= $form->field($model, 'responsible_id') ?>
 
     <?= $form->field($model, 'initiator_id') ?>
+
+    <?= $form->field($model, 'project_id') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

@@ -46,4 +46,14 @@ class Roles extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Users::className(), ['role_id' => 'id']);
     }
+
+    public function getTasks(){
+        return $this->hasMany(Tasks::className(), ['project_id' => 'id']);
+    }
+
+    public static function getTask($id){
+        return static::find()
+            ->where(['id' => $id])
+            ->all();
+    }
 }
